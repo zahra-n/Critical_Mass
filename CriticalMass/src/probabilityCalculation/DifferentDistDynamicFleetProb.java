@@ -147,9 +147,9 @@ public class DifferentDistDynamicFleetProb {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
-		for (int p = 10 ; p < 101 ; p+=10 )
+		for (int p = 10 ; p < 21 ; p+=10 )
 		{
-		for (int v = 460 ; v < 501 ; v+=10)	
+		for (int v = 510 ; v < 511 ; v+=10)	
 		{
 		
 		int probability = 0; //counting successful instances
@@ -163,14 +163,14 @@ public class DifferentDistDynamicFleetProb {
 		int area = (int) (xLimit*yLimit/Math.pow(10, 6));
 		
 		
-		File plog = new File("final\\"+ area + "sqkm\\" + area + "sqkm_probabilities.csv" );
-		FileWriter pFileWriter = new FileWriter(plog, true);
-		BufferedWriter pBufferedWriter = new BufferedWriter(pFileWriter);
+//		File plog = new File("final\\"+ area + "sqkm\\" + area + "sqkm_probabilities.csv" );
+//		FileWriter pFileWriter = new FileWriter(plog, true);
+//		BufferedWriter pBufferedWriter = new BufferedWriter(pFileWriter);
 //		pBufferedWriter.write("Area_sqKm,Population,Population_distribution,Vehicles_added_each_iteration,Vehicles_distribution,Success_probability\n");
 		
-		for (int probIteration = 0 ; probIteration < 100 ; probIteration++)
+		for (int probIteration = 0 ; probIteration < 10 ; probIteration++)
 		{
-			String dir = "final\\"+ area + "sqkm\\P" + passDist + passengerNumber + "\\V" + vehDist + vehAddedInIteration + "\\" + probIteration + "\\" ;
+//			String dir = "final\\"+ area + "sqkm\\P" + passDist + passengerNumber + "\\V" + vehDist + vehAddedInIteration + "\\" + probIteration + "\\" ;
 			double reachMeasure = 100; // in meter
 			double potentialUtil = 5.0;
 			double vehUtilThres = 2.0;
@@ -180,13 +180,13 @@ public class DifferentDistDynamicFleetProb {
 			int passInterestThres = 5;
 			int iterationWrite = 50;
 			int interestedPassengers = 0;
-			Files.createDirectories(Paths.get(dir));
-			File log = new File(dir + "aggregated-P" + passengerNumber + passDist + "-V" + vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv" );
-			FileWriter fileWriter = new FileWriter(log, false);
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter.write("Iteration,Passengers' mean utility,Vehicles' mean utility,"
-					+ "% Interested passengers,% Matched passengers,% Matched Vehicles,"
-					+ "Interested passengers,Matched passengers,Matched Vehicles,Total Vehicles\n");
+//			Files.createDirectories(Paths.get(dir));
+//			File log = new File(dir + "aggregated-P" + passengerNumber + passDist + "-V" + vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv" );
+//			FileWriter fileWriter = new FileWriter(log, false);
+//			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//			bufferedWriter.write("Iteration,Passengers' mean utility,Vehicles' mean utility,"
+//					+ "% Interested passengers,% Matched passengers,% Matched Vehicles,"
+//					+ "Interested passengers,Matched passengers,Matched Vehicles,Total Vehicles\n");
 			
 			
 			//========================================================================================
@@ -248,6 +248,7 @@ public class DifferentDistDynamicFleetProb {
 							passengers.get(i).neighbour++;
 						}
 					}
+//					System.out.println("Pass" + passengers.get(i).id + ": " + passengers.get(i).neighbour);
 				}
 				
 				//counting interested passengers
@@ -261,6 +262,7 @@ public class DifferentDistDynamicFleetProb {
 					else
 						passengers.get(i).setInterest(0);
 				}
+				System.out.println("interested Passengers: " + interestedPassengers);
 				
 				
 				//Neighbours: counting the number of interested passenger around each vehicles 
@@ -362,30 +364,30 @@ public class DifferentDistDynamicFleetProb {
 	//			System.out.println("Vehicles' mean utility = " + meanVehUtil);
 	//			System.out.println("matched vehicles = " + matchedVehPercent + "%");
 				
-				if (k % iterationWrite == 0 )
-				{
-					StringBuilder fileContentP = new StringBuilder();
-					StringBuilder fileContentV = new StringBuilder();
+//				if (k % iterationWrite == 1000 )
+//				{
+//					StringBuilder fileContentP = new StringBuilder();
+//					StringBuilder fileContentV = new StringBuilder();
+//					
+//					fileContentP.append("Iteration,Passenger_ID,X,Y,Utility,Neighbours,Interest"+ "\n");
+//					for (int i = 0 ; i < passengers.size(); ++i)
+//						fileContentP.append(k + "," + passengers.get(i).toString() + "\n");
+//					
+//					fileContentV.append("Iteration,Vehicle_ID,X,Y,Utility,Capacity,Neighbours" + "\n");
+//					for (int i = 0 ; i < vehicles.size(); ++i)
+//						fileContentV.append(k + "," +vehicles.get(i).toString() + "\n");
 					
-					fileContentP.append("Iteration,Passenger_ID,X,Y,Utility,Neighbours,Interest"+ "\n");
-					for (int i = 0 ; i < passengers.size(); ++i)
-						fileContentP.append(k + "," + passengers.get(i).toString() + "\n");
-					
-					fileContentV.append("Iteration,Vehicle_ID,X,Y,Utility,Capacity,Neighbours" + "\n");
-					for (int i = 0 ; i < vehicles.size(); ++i)
-						fileContentV.append(k + "," +vehicles.get(i).toString() + "\n");
-					
-					ZahraUtility.write2File(fileContentP.toString(), dir + k + "-passengers-P" + passengerNumber + passDist 
-							+ "-V" + vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv");
-					ZahraUtility.write2File(fileContentV.toString(), dir + k + "-vehicles-P" + passengerNumber + passDist + "-V" 
-							+ vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv");
-				}
+//					ZahraUtility.write2File(fileContentP.toString(), dir + k + "-passengers-P" + passengerNumber + passDist 
+//							+ "-V" + vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv");
+//					ZahraUtility.write2File(fileContentV.toString(), dir + k + "-vehicles-P" + passengerNumber + passDist + "-V" 
+//							+ vehAddedInIteration + vehDist + "-" + vehicleCapacity + "C" + ".csv");
+//				}
 				
-				bufferedWriter.write(k + "," + meanPassengersUtil + "," + meanVehUtil + "," 
-						+ (double)interestedPassengers/passengers.size() * 100 + "%," 
-						+  matchedPassPercent + "%," + matchedVehPercent + "%," + interestedPassengers 
-						+ "," + matchedPassengers + "," + (vehicles.size() - unmatchedVehicles) + "," 
-						+ vehicles.size() + "\n");//fileContentAggregated.toString());
+//				bufferedWriter.write(k + "," + meanPassengersUtil + "," + meanVehUtil + "," 
+//						+ (double)interestedPassengers/passengers.size() * 100 + "%," 
+//						+  matchedPassPercent + "%," + matchedVehPercent + "%," + interestedPassengers 
+//						+ "," + matchedPassengers + "," + (vehicles.size() - unmatchedVehicles) + "," 
+//						+ vehicles.size() + "\n");//fileContentAggregated.toString());
 			
 				//===============reseting the available numbers================
 	
@@ -431,15 +433,15 @@ public class DifferentDistDynamicFleetProb {
 //		    bufferedWriter.write(probability);
 //			System.out.println(probIteration);
 			
-			bufferedWriter.close();
+//			bufferedWriter.close();
 		    
 		    
 		}//end of probability iteration
 		double successProb = (double) probability/allIterations * 100; 
 		System.out.println(p + " passengers and " + v + " vehicles: " + successProb + "%");
-		pBufferedWriter.write(area + "," + passengerNumber + "," + passDist + "," + vehAddedInIteration + "," + vehDist + "," + successProb + "\n");
-		pBufferedWriter.close();
-		
+//		pBufferedWriter.write(area + "," + passengerNumber + "," + passDist + "," + vehAddedInIteration + "," + vehDist + "," + successProb + "\n");
+//		pBufferedWriter.close();
+//		
 		System.out.println("DONE");
 		Toolkit.getDefaultToolkit().beep();
 	}
